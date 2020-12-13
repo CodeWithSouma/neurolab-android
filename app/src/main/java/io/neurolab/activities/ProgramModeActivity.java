@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.view.WindowManager;
+import android.widget.Toast;
 
 import io.neurolab.R;
 import io.neurolab.fragments.FocusVisualFragment;
@@ -18,6 +19,9 @@ public class ProgramModeActivity extends AppCompatActivity {
     public static final int FOCUS_PROGRAM_MODE = 1;
     public static final int RELAX_PROGRAM_MODE = 2;
     public static final int MEMORY_GRAPH_MODE = 3;
+    private static boolean DATA_LOGGER_MODE = false;
+
+    public static final String FROM_DATA_LOGGER = "FROM_DATA_LOGGER";
 
     public static final String INTENT_KEY_PROGRAM_MODE = "MODE";
     public static final String SETTING_SIMULATION = "SETTING_SIMULATION";
@@ -52,6 +56,9 @@ public class ProgramModeActivity extends AppCompatActivity {
             mode = MEMORY_GRAPH_MODE;
         else if (modeFlag.equals(RelaxVisualFragment.RELAX_PROGRAM_FLAG))
             mode = RELAX_PROGRAM_MODE;
+
+        if (bundle.getBoolean(FROM_DATA_LOGGER))
+            DATA_LOGGER_MODE = true;
 
 //        settingSimulation = bundle.getBoolean(SETTING_SIMULATION);
 //        settingLoadResourcesFromPhn = bundle.getBoolean(SETTING_LOAD_RESOURCES_FROM_PHN);
@@ -102,7 +109,11 @@ public class ProgramModeActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        if (mode == FOCUS_PROGRAM_MODE)
+        if (DATA_LOGGER_MODE) {
+            DATA_LOGGER_MODE = false;
+            startActivity(new Intent(this, DataLoggerActivity.class));
+        }
+        else if (mode == FOCUS_PROGRAM_MODE)
             startActivity(new Intent(this, FocusParentActivity.class));
         else if (mode == RELAX_PROGRAM_MODE)
             startActivity(new Intent(this, RelaxParentActivity.class));

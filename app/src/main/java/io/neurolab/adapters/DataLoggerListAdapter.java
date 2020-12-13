@@ -123,6 +123,7 @@ public class DataLoggerListAdapter extends RecyclerView.Adapter<DataLoggerListAd
             Bundle bundle = new Bundle();
             Intent intent = new Intent(context, ProgramModeActivity.class);
             bundle.putString(ProgramModeActivity.INTENT_KEY_PROGRAM_MODE, FocusVisualFragment.FOCUS_FLAG);
+            bundle.putBoolean(ProgramModeActivity.FROM_DATA_LOGGER,true);
             bundle.putString(FocusVisualFragment.FOCUS_FLAG, FocusVisualFragment.FOCUS_FLAG);
             bundle.putString(LOG_FILE_KEY, files.get(i).getAbsolutePath());
             intent.putExtras(bundle);
@@ -133,6 +134,7 @@ public class DataLoggerListAdapter extends RecyclerView.Adapter<DataLoggerListAd
             Bundle bundle = new Bundle();
             Intent intent = new Intent(context, ProgramModeActivity.class);
             bundle.putString(ProgramModeActivity.INTENT_KEY_PROGRAM_MODE, MemoryGraphParent.MEMORY_GRAPH_FLAG);
+            bundle.putBoolean(ProgramModeActivity.FROM_DATA_LOGGER,true);
             bundle.putString(LOG_FILE_KEY, files.get(i).getAbsolutePath());
             intent.putExtras(bundle);
             context.startActivity(intent);
